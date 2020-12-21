@@ -24,5 +24,13 @@
   ],
   "aceProviders": [
     "@adonisjs/repl"
+  ],
+  "metaFiles": [
+    ".env",
+    ".adonisrc.json",
+    {
+      "pattern": "public/**",
+      "reloadServer": false
+    }
   ]
 }

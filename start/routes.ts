@@ -24,4 +24,5 @@ Route.get('/', async () => {
   return { hello: 'world' }
 })
 
-Route.get('contacts', 'ContactsController.getContacts')
+Route.resource('contacts', 'ContactsController')
+  .except(['create', 'edit'])
