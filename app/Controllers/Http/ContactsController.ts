@@ -7,6 +7,19 @@ export default class ContactsController {
 		return await Contact.all()
 	}
 
+	public async lastContact() {
+		return await Contact
+			.query()
+			.orderBy('updated_at', 'desc')
+			.limit(5)
+	}
+
+	public async favorites() {
+		return await Contact
+		.query()	
+		.where('favorite', true)
+	}
+
 	public async store({ request }: HttpContextContract) {
 		const data = request.all()
 		const contact = new Contact()
@@ -15,6 +28,7 @@ export default class ContactsController {
 		contact.email = data.email
 		contact.phone_number = data.phone_number
 		contact.photo = data.photo
+		contact.favorite = data.favorite
 
 		await contact.save()
 	}
@@ -33,6 +47,7 @@ export default class ContactsController {
 		contact.email = data.email
 		contact.phone_number = data.phone_number
 		contact.photo = data.photo
+		contact.favorite = data.favorite
 
 		await contact.save()
 	}

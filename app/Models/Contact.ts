@@ -22,4 +22,7 @@ export default class Contact extends BaseModel {
 
   @column()
   public photo: string
+
+  @column()
+  public favorite: boolean
 }

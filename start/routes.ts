@@ -26,3 +26,7 @@ Route.get('/', async () => {
 
 Route.resource('contacts', 'ContactsController')
   .except(['create', 'edit'])
+
+Route.get('contacts-favorites', 'ContactsController.favorites')
+Route.get('contacts-last', 'ContactsController.lastContact')
+
