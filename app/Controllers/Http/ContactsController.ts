@@ -27,6 +27,7 @@ export default class ContactsController {
 		contact.name = data.name
 		contact.email = data.email
 		contact.phone_number = data.phone_number
+		
 		contact.photo = data.photo
 		contact.favorite = data.favorite
 
