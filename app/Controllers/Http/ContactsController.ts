@@ -1,5 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Contact from 'App/Models/Contact'
+import Application from '@ioc:Adonis/Core/Application'
 
 export default class ContactsController {
 	
@@ -22,12 +23,15 @@ export default class ContactsController {
 
 	public async store({ request }: HttpContextContract) {
 		const data = request.all()
+		const img = Buffer.from(data.photo, 'base64')
+		img.
+
+
 		const contact = new Contact()
 
 		contact.name = data.name
 		contact.email = data.email
 		contact.phone_number = data.phone_number
-		
 		contact.photo = data.photo
 		contact.favorite = data.favorite
 
