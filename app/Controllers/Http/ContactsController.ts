@@ -1,5 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Contact from 'App/Models/Contact'
+import * as fs from "fs"
 import Application from '@ioc:Adonis/Core/Application'
 
 export default class ContactsController {
@@ -23,18 +24,22 @@ export default class ContactsController {
 
 	public async store({ request }: HttpContextContract) {
 		const data = request.all()
-		const img = Buffer.from(data.photo, 'base64')
-		img.
-
-
 		const contact = new Contact()
+		if(!data.photo === null && data.photo.length > 0) {
+			let block = data.photo.split(';')
+			let realData = block[1].split(',')[1]
+
+			const img = Buffer.from(realData, 'base64')
+			
+			const path = Application.publicPath('img')+'/'+data.photoName
+			fs.writeFileSync(path, img)
+			contact.photo = '/img/'+data.photoName
+		}
 
 		contact.name = data.name
 		contact.email = data.email
 		contact.phone_number = data.phone_number
-		contact.photo = data.photo
 		contact.favorite = data.favorite
-
 		await contact.save()
 	}
 
@@ -48,10 +53,17 @@ export default class ContactsController {
 		const data = request.all()
 		const contact = await Contact.findOrFail(id)
 
+		if(data.photo !== null && data.photo.length > 80) {
+			let block = data.photo.split(';')
+			let realData = block[1].split(',')[1]
+			const img = Buffer.from(realData, 'base64')
+			const path = Application.publicPath('img')+'/'+data.photoName
+			fs.writeFileSync(path, img)
+			contact.photo = '/img/'+data.photoName
+		}
 		contact.name = data.name
 		contact.email = data.email
 		contact.phone_number = data.phone_number
-		contact.photo = data.photo
 		contact.favorite = data.favorite
 
 		await contact.save()
