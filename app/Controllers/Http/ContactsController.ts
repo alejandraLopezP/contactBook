@@ -25,7 +25,7 @@ export default class ContactsController {
 	public async store({ request }: HttpContextContract) {
 		const data = request.all()
 		const contact = new Contact()
-		if(!data.photo === null && data.photo.length > 0) {
+		if(data.photo !== null && data.photo.length > 0) {
 			let block = data.photo.split(';')
 			let realData = block[1].split(',')[1]
 
